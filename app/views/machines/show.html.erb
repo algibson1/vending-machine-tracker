@@ -1,1 +1,19 @@
 <h1><%= @machine.location %> Vending Machine</h1>
+
+<%= form_with url: machine_snacks_path(@machine), method: :post do |form| %>
+  <%= form.label :snack_id %>
+  <%= form.number_field :snack_id %>
+
+  <%= form.submit "Submit" %>
+<% end %>
+
+
+<h2>Snacks</h2>
+<% @machine.snacks.each do |snack| %>
+  <div id="snack-<%= snack.id %>">
+  * <%= snack.name %>: <%= snack.format_price %> <%= button_to "Remove Snack", machine_snack_path(@machine, snack), method: :delete %>
+  <br>
+  </div>
+<% end %>
+
+<p>Average Price: <%= @machine.average_snack_price %></p>
